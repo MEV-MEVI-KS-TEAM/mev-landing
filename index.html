@@ -747,6 +747,11 @@ footer strong{color:var(--naranja);font-weight:700}
   <p style="text-align:center;color:var(--gt);font-size:.72rem;max-width:620px;margin:14px auto 0;line-height:1.6;opacity:.8">Proyección ilustrativa. Los resultados dependen de tu esfuerzo, mercado y operación; no representan garantía de ingresos.</p>
 </section>
 
+<!-- CTA INTERMEDIO · tras calculadora -->
+<div class="cta-mid">
+  <a class="cta-sched" onclick="trackCal(event)" href="https://cal.com/team/mev-sales-team/mevi-informes">Quiero ver los números de MI escuela → Agendar videollamada</a>
+</div>
+
 <!-- COMPARATIVA -->
 <section class="comp reveal">
   <h2>Escuela Física <span>vs</span><br>Mi Escuela Virtual</h2>
@@ -764,6 +769,11 @@ footer strong{color:var(--naranja);font-weight:700}
     </tbody>
   </table>
 </section>
+
+<!-- CTA INTERMEDIO · tras comparativa -->
+<div class="cta-mid">
+  <a class="cta-sched" onclick="trackCal(event)" href="https://cal.com/team/mev-sales-team/mevi-informes">📅 Agendar mi videollamada gratuita</a>
+</div>
 
 <!-- PARA QUIÉN -->
 <section class="pq reveal">
@@ -1012,6 +1022,26 @@ footer strong{color:var(--naranja);font-weight:700}
     📅 Quiero Mi Escuela Virtual — Agendar Videollamada
   </a>
 
+  <p style="position:relative;color:rgba(0,0,0,.78);font-size:.92rem;font-weight:600;margin:20px auto 0;max-width:560px;line-height:1.6">Videollamada gratuita de 30 minutos · Sin compromiso · Resolvemos todas tus dudas</p>
+
+  <div style="position:relative;max-width:720px;margin:36px auto 0;background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.14);border-radius:18px;padding:26px 22px">
+    <div style="font-weight:800;color:var(--negro);font-size:1.05rem;margin-bottom:20px;text-align:center">¿Qué pasa cuando agendas?</div>
+    <div style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;text-align:left">
+      <div style="flex:1 1 190px;min-width:170px;display:flex;gap:12px;align-items:flex-start">
+        <div style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--negro);color:var(--naranja);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem">1</div>
+        <div style="color:rgba(0,0,0,.82);font-size:.9rem;line-height:1.5;font-weight:500">Eliges día y hora en el calendario</div>
+      </div>
+      <div style="flex:1 1 190px;min-width:170px;display:flex;gap:12px;align-items:flex-start">
+        <div style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--negro);color:var(--naranja);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem">2</div>
+        <div style="color:rgba(0,0,0,.82);font-size:.9rem;line-height:1.5;font-weight:500">Videollamada de 30 min donde vemos tu caso</div>
+      </div>
+      <div style="flex:1 1 190px;min-width:170px;display:flex;gap:12px;align-items:flex-start">
+        <div style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--negro);color:var(--naranja);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem">3</div>
+        <div style="color:rgba(0,0,0,.82);font-size:.9rem;line-height:1.5;font-weight:500">Decides con toda la información, sin presión</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 
@@ -1052,6 +1082,68 @@ function trackCal(e) {
   fbq('track', 'CompleteRegistration');
   setTimeout(function(){ window.open('https://cal.com/team/mev-sales-team/mevi-informes', '_blank'); }, 300);
 }
+</script>
+
+<!-- ===== OPTIMIZACIÓN EMBUDO: estilos CTAs ===== -->
+<style>
+/* Botón de agendar reutilizable (CTAs intermedios en picos de deseo) */
+.cta-sched{display:inline-flex;align-items:center;justify-content:center;gap:10px;max-width:540px;background:linear-gradient(180deg,var(--naranja) 0%,#E85F00 100%);color:var(--negro);font-weight:800;font-size:1.05rem;line-height:1.35;padding:18px 40px;border-radius:14px;text-decoration:none;cursor:pointer;letter-spacing:.2px;text-align:center;transition:transform .3s var(--ease-spring),box-shadow .3s var(--ease-out);box-shadow:0 12px 30px -4px var(--naranja-glow),0 1px 0 rgba(255,255,255,.2) inset}
+.cta-sched:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 44px -6px rgba(255,107,0,.55),0 1px 0 rgba(255,255,255,.25) inset}
+.cta-sched:active{transform:translateY(-1px) scale(.99)}
+.cta-mid{display:flex;justify-content:center;padding:0 5% 80px;margin-top:-30px;position:relative;z-index:2}
+@media(max-width:768px){.cta-mid{margin-top:-8px;padding-bottom:64px}.cta-sched{font-size:.98rem;padding:16px 26px;width:100%}}
+
+/* CTA flotante (solo móvil) */
+.cta-float{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;padding:10px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.82) 45%,rgba(10,10,10,.96) 100%);pointer-events:none;opacity:0;transform:translateY(130%);transition:transform .38s var(--ease-out),opacity .3s ease}
+.cta-float.show{opacity:1;transform:translateY(0)}
+.cta-float a{pointer-events:auto;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:52px;background:linear-gradient(180deg,var(--naranja) 0%,#E85F00 100%);color:var(--negro);font-weight:800;font-size:1.05rem;border-radius:14px;text-decoration:none;letter-spacing:.2px;box-shadow:0 12px 30px -4px var(--naranja-glow),0 1px 0 rgba(255,255,255,.2) inset}
+.cta-float a:active{transform:scale(.99)}
+@media(max-width:768px){.cta-float{display:block}}
+</style>
+
+<!-- CTA flotante móvil -->
+<div class="cta-float" id="ctaFloat">
+  <a onclick="trackCal(event)" href="https://cal.com/team/mev-sales-team/mevi-informes">📅 Agendar videollamada gratis</a>
+</div>
+
+<!-- ===== OPTIMIZACIÓN EMBUDO: mostrar/ocultar CTA flotante ===== -->
+<script>
+(function(){
+  var fEl=document.getElementById('ctaFloat');
+  if(!fEl)return;
+  var hero=document.querySelector('.hero');
+  var finalCta=document.querySelector('.ctaf');
+  var pastHero=!hero, finalVisible=false;
+  function update(){
+    if(pastHero && !finalVisible) fEl.classList.add('show');
+    else fEl.classList.remove('show');
+  }
+  if('IntersectionObserver' in window){
+    if(hero) new IntersectionObserver(function(es){pastHero=!es[0].isIntersecting;update();},{threshold:0}).observe(hero);
+    if(finalCta) new IntersectionObserver(function(es){finalVisible=es[0].isIntersecting;update();},{threshold:0}).observe(finalCta);
+  } else { pastHero=true; }
+  update();
+})();
+</script>
+
+<!-- ===== MEDICIÓN EMBUDO: eventos de scroll (custom, NO conversión) ===== -->
+<script>
+(function(){
+  function fired(k){try{return sessionStorage.getItem(k)==='1';}catch(e){return false;}}
+  function mark(k){try{sessionStorage.setItem(k,'1');}catch(e){}}
+  var s50=fired('mev_scroll50'), s75=fired('mev_scroll75');
+  function onScroll(){
+    var st=window.scrollY||document.documentElement.scrollTop;
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    if(max<=0)return;
+    var p=st/max;
+    if(!s50 && p>=0.5){s50=true;mark('mev_scroll50');if(typeof fbq==='function')fbq('trackCustom','Scroll50');}
+    if(!s75 && p>=0.75){s75=true;mark('mev_scroll75');if(typeof fbq==='function')fbq('trackCustom','Scroll75');}
+    if(s50 && s75)window.removeEventListener('scroll',onScroll);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
 </script>
 
 </body>
