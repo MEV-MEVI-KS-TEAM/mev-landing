@@ -406,6 +406,12 @@ footer strong{color:var(--naranja);font-weight:700}
 /* ---------- PRUEBA SOCIAL · tarjetas de escuelas reales ---------- */
 .tcard{box-shadow:0 24px 60px -28px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.04);transition:transform .35s var(--ease-out),border-color .35s var(--ease-out),box-shadow .35s var(--ease-out)}
 .tcard:hover{transform:translateY(-5px);border-color:rgba(255,107,0,.45)!important;box-shadow:0 34px 74px -26px rgba(0,0,0,.9),0 0 52px rgba(255,107,0,.12),inset 0 1px 0 rgba(255,255,255,.05)}
+.school-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;max-width:920px;margin:0 auto 40px}
+@media(max-width:768px){.school-grid{grid-template-columns:1fr;max-width:440px}}
+.tcard-info{padding:14px 16px 16px;text-align:left;border-top:1px solid rgba(255,107,0,.12)}
+.tcard-info strong{display:block;color:var(--blanco);font-size:.95rem;margin-bottom:3px}
+.tcard-info a{color:var(--naranja);font-size:.8rem;font-weight:700;text-decoration:none}
+.tcard-info a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -800,7 +806,7 @@ footer strong{color:var(--naranja);font-weight:700}
 
 <!-- CTA INTERMEDIO · tras calculadora -->
 <div class="cta-mid">
-  <a class="cta-sched" onclick="trackCal(event)" href="https://cal.com/team/mev-sales-team/mevi-informes">Quiero ver los números de MI escuela → Agendar videollamada</a>
+  <p class="cta-note">🎥 ¿Quieres agendar tu videollamada? El botón está al final de la página ⬇️</p>
 </div>
 
 <!-- COMPARATIVA -->
@@ -823,7 +829,7 @@ footer strong{color:var(--naranja);font-weight:700}
 
 <!-- CTA INTERMEDIO · tras comparativa -->
 <div class="cta-mid">
-  <a class="cta-sched" onclick="trackCal(event)" href="https://cal.com/team/mev-sales-team/mevi-informes">📅 Agendar mi videollamada gratuita</a>
+  <p class="cta-note">🎥 ¿Quieres agendar tu videollamada? El botón está al final de la página ⬇️</p>
 </div>
 
 <!-- PARA QUIÉN -->
@@ -978,31 +984,63 @@ footer strong{color:var(--naranja);font-weight:700}
     </div>
 
     <div style="text-align:center;margin-bottom:14px">
-      <div style="display:inline-block;background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.3);border-radius:100px;padding:8px 20px;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--naranja)">🏫 Escuela Ya Operando</div>
+      <div style="display:inline-block;background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.3);border-radius:100px;padding:8px 20px;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--naranja)">🏫 Escuelas Ya Operando</div>
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);margin:16px 0 8px">Ellos ya tienen<br>su Escuela Virtual</h2>
       <p style="color:var(--gt);font-size:.93rem;max-width:600px;margin:0 auto">Tengan o no experiencia en educación. Con la misma plataforma que tú tendrías.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,440px));justify-content:center;gap:28px;margin-bottom:40px">
+    <div class="school-grid">
 
-      <!-- CEVM -->
+      <!-- EDVEX -->
       <div class="tcard" style="background:var(--negro3);border:1px solid rgba(255,107,0,.2);border-radius:16px;overflow:hidden">
-        <!-- Preview sitio web -->
-        <a href="https://www.edvexacademy.online/" target="_blank" style="display:block;position:relative;overflow:hidden;max-height:200px">
-          <img src="edvex-preview.png" alt="EDVEX Academy - Tu Prepa en 6 meses" style="width:100%;display:block;object-fit:cover;object-position:top;transition:transform .3s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,10,10,.9));padding:14px 16px;display:flex;align-items:center;gap:8px">
-            <span style="color:var(--naranja);font-size:.82rem;font-weight:700">🌐 www.edvexacademy.online ↗</span>
-          </div>
+        <a href="https://www.edvexacademy.online/" target="_blank" rel="noopener" style="display:block;position:relative;overflow:hidden;max-height:200px">
+          <img src="edvex-preview.png" alt="EDVEX Academy - Tu Prepa en 6 meses" loading="lazy" style="width:100%;display:block;object-fit:cover;object-position:top;transition:transform .3s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
         </a>
+        <div class="tcard-info">
+          <strong>EDVEX Academy</strong>
+          <a href="https://www.edvexacademy.online/" target="_blank" rel="noopener">🌐 www.edvexacademy.online ↗</a>
+        </div>
       </div>
 
+      <!-- LEARNEASY -->
+      <div class="tcard" style="background:var(--negro3);border:1px solid rgba(255,107,0,.2);border-radius:16px;overflow:hidden">
+        <a href="https://learneasy-idiomas.online" target="_blank" rel="noopener" style="display:block;position:relative;overflow:hidden;max-height:200px">
+          <img src="learneasy-preview.png" alt="LearnEasy Centro de Idiomas" loading="lazy" style="width:100%;display:block;object-fit:cover;object-position:top;transition:transform .3s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+        <div class="tcard-info">
+          <strong>LearnEasy Centro de Idiomas</strong>
+          <a href="https://learneasy-idiomas.online" target="_blank" rel="noopener">🌐 learneasy-idiomas.online ↗</a>
+        </div>
+      </div>
+
+      <!-- RAICES -->
+      <div class="tcard" style="background:var(--negro3);border:1px solid rgba(255,107,0,.2);border-radius:16px;overflow:hidden">
+        <a href="https://institutoraices.online" target="_blank" rel="noopener" style="display:block;position:relative;overflow:hidden;max-height:200px">
+          <img src="raices-preview.png" alt="Instituto Raíces Sin Fronteras" loading="lazy" style="width:100%;display:block;object-fit:cover;object-position:top;transition:transform .3s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+        <div class="tcard-info">
+          <strong>Instituto Raíces</strong>
+          <a href="https://institutoraices.online" target="_blank" rel="noopener">🌐 institutoraices.online ↗</a>
+        </div>
+      </div>
+
+      <!-- NOVAHUMAN -->
+      <div class="tcard" style="background:var(--negro3);border:1px solid rgba(255,107,0,.2);border-radius:16px;overflow:hidden">
+        <a href="https://www.novahuman-institute.online" target="_blank" rel="noopener" style="display:block;position:relative;overflow:hidden;max-height:200px">
+          <img src="novahuman-preview.png" alt="Nova Human Institute" loading="lazy" style="width:100%;display:block;object-fit:cover;object-position:top;transition:transform .3s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+        <div class="tcard-info">
+          <strong>Nova Human Institute</strong>
+          <a href="https://www.novahuman-institute.online" target="_blank" rel="noopener">🌐 novahuman-institute.online ↗</a>
+        </div>
+      </div>
 
     </div>
 
     <!-- Banner de prueba social -->
     <div style="background:linear-gradient(135deg,rgba(255,107,0,.08),rgba(255,107,0,.03));border:1px solid rgba(255,107,0,.25);border-radius:14px;padding:24px 28px;text-align:center;margin-bottom:50px">
       <p style="font-size:.95rem;color:#ddd;margin:0;line-height:1.7">
-        🔍 <strong style="color:#fff">Esta es una escuela real, ya operando.</strong> Entra a su página y ve con tus propios ojos cómo funciona el sistema que tú también tendrías desde el día uno.
+        🔍 <strong style="color:#fff">Estas son escuelas reales, ya operando.</strong> Entra a sus páginas y ve con tus propios ojos cómo funciona el sistema que tú también tendrías desde el día uno.
       </p>
     </div>
 
@@ -1126,11 +1164,9 @@ function trackCal(e) {
 <!-- ===== OPTIMIZACIÓN EMBUDO: estilos CTAs ===== -->
 <style>
 /* Botón de agendar reutilizable (CTAs intermedios en picos de deseo) */
-.cta-sched{display:inline-flex;align-items:center;justify-content:center;gap:10px;max-width:540px;background:linear-gradient(180deg,var(--naranja) 0%,#E85F00 100%);color:var(--negro);font-weight:800;font-size:1.05rem;line-height:1.35;padding:18px 40px;border-radius:14px;text-decoration:none;cursor:pointer;letter-spacing:.2px;text-align:center;transition:transform .3s var(--ease-spring),box-shadow .3s var(--ease-out);box-shadow:0 12px 30px -4px var(--naranja-glow),0 1px 0 rgba(255,255,255,.2) inset}
-.cta-sched:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 44px -6px rgba(255,107,0,.55),0 1px 0 rgba(255,255,255,.25) inset}
-.cta-sched:active{transform:translateY(-1px) scale(.99)}
+.cta-note{color:var(--gt2);font-size:.92rem;line-height:1.6;background:rgba(255,107,0,.05);border:1px dashed rgba(255,107,0,.28);border-radius:12px;padding:14px 24px;text-align:center;max-width:540px;margin:0;user-select:none}
 .cta-mid{display:flex;justify-content:center;padding:0 5% 80px;margin-top:-30px;position:relative;z-index:2}
-@media(max-width:768px){.cta-mid{margin-top:-8px;padding-bottom:64px}.cta-sched{font-size:.98rem;padding:16px 26px;width:100%}}
+@media(max-width:768px){.cta-mid{margin-top:-8px;padding-bottom:64px}.cta-note{font-size:.86rem;padding:12px 18px}}
 
 /* CTA flotante (solo móvil) */
 .cta-float{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:none;padding:10px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.82) 45%,rgba(10,10,10,.96) 100%);pointer-events:none;opacity:0;transform:translateY(130%);transition:transform .38s var(--ease-out),opacity .3s ease}
@@ -1150,18 +1186,23 @@ function trackCal(e) {
 (function(){
   var fEl=document.getElementById('ctaFloat');
   if(!fEl)return;
-  var hero=document.querySelector('.hero');
   var finalCta=document.querySelector('.ctaf');
-  var pastHero=!hero, finalVisible=false;
+  var deepEnough=false, finalVisible=false;
   function update(){
-    if(pastHero && !finalVisible) fEl.classList.add('show');
+    if(deepEnough && !finalVisible) fEl.classList.add('show');
     else fEl.classList.remove('show');
   }
-  if('IntersectionObserver' in window){
-    if(hero) new IntersectionObserver(function(es){pastHero=!es[0].isIntersecting;update();},{threshold:0}).observe(hero);
-    if(finalCta) new IntersectionObserver(function(es){finalVisible=es[0].isIntersecting;update();},{threshold:0}).observe(finalCta);
-  } else { pastHero=true; }
-  update();
+  function onScroll(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    var st=window.scrollY||document.documentElement.scrollTop;
+    deepEnough = max>0 && (st/max)>=0.8;
+    update();
+  }
+  if('IntersectionObserver' in window && finalCta){
+    new IntersectionObserver(function(es){finalVisible=es[0].isIntersecting;update();},{threshold:0}).observe(finalCta);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
 })();
 </script>
 
