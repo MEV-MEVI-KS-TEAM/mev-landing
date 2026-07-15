@@ -18,6 +18,16 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2131352721031916&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18326006064"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18326006064');
+</script>
+
 <meta charset="UTF-8">
 <meta name="facebook-domain-verification" content="9e74jisnzitw7xk20s2rdyyx2jqno0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1108,6 +1118,7 @@ if(_nav){const _onScroll=()=>{if(window.scrollY>16)_nav.classList.add('scrolled'
 function trackCal(e) {
   e.preventDefault();
   fbq('track', 'CompleteRegistration');
+  gtag('event', 'conversion', {'send_to': 'AW-18326006064/Vwv4CKTb9tAcELDSwqJE'});
   setTimeout(function(){ window.open('https://cal.com/team/mev-sales-team/mevi-informes?utm_source=mev', '_blank'); }, 300);
 }
 </script>
