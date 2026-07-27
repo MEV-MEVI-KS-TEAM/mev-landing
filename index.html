@@ -162,6 +162,11 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
 .comp{padding:90px 5%;max-width:900px;margin:0 auto;text-align:center}
 .comp h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.6rem);text-align:center;margin-bottom:46px;line-height:1.15}
 .comp h2 span{color:var(--naranja)}
+.comp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comp-hint{display:none;align-items:center;justify-content:center;gap:7px;color:var(--gt2);font-size:.72rem;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;margin:0 0 12px}
+.comp-hint::after{content:'→';font-size:.9rem;color:var(--naranja);animation:hintSlide 1.6s ease-in-out infinite}
+@keyframes hintSlide{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@media(max-width:768px){.comp-hint{display:flex}}
 table{width:100%;border-collapse:separate;border-spacing:0 8px;min-width:520px}
 th{padding:14px 16px;text-align:center;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;background:transparent}
 th:first-child{text-align:left}
@@ -825,6 +830,8 @@ footer strong{color:var(--naranja);font-weight:700}
 <!-- COMPARATIVA -->
 <section class="comp reveal">
   <h2>Escuela Física <span>vs</span><br>Mi Escuela Virtual</h2>
+  <p class="comp-hint" aria-hidden="true">Desliza para ver la tabla</p>
+  <div class="comp-wrap">
   <table>
     <thead><tr><th></th><th class="tb">Escuela Física</th><th class="tg">Mi Escuela Virtual</th></tr></thead>
     <tbody>
@@ -838,6 +845,7 @@ footer strong{color:var(--naranja);font-weight:700}
       <tr><td>Riesgo inicial</td><td class="bad">Muy alto</td><td class="good">mucho menor</td></tr>
     </tbody>
   </table>
+  </div>
 </section>
 
 <!-- CTA INTERMEDIO · tras comparativa -->
