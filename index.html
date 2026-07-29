@@ -878,7 +878,7 @@ footer strong{color:var(--naranja);font-weight:700}
     </div>
 
     <div style="text-align:center">
-      <a class="btn-p" onclick="trackCal(event)" href="https://cal.com/team/mev-sales-team/mevi-informes" style="font-size:1.02rem;padding:17px 38px">🎓 Quiero vender cursos de ingreso →</a>
+      <a class="btn-p" onclick="trackCalCursos(event)" href="https://cal.com/team/mev-sales-team/mevi-informes?utm_source=mev&amp;utm_content=cursos-ingreso" style="font-size:1.02rem;padding:17px 38px">🎓 Quiero vender cursos de ingreso →</a>
     </div>
 
     <p style="font-size:.7rem;color:var(--gt);opacity:.85;line-height:1.65;max-width:760px;margin:30px auto 0;text-align:center">Cursos de preparación con contenido propio e independiente. MEV y las escuelas de sus clientes no están afiliadas ni avaladas por las instituciones educativas mencionadas; sus nombres se usan únicamente para identificar el examen que cada curso ayuda a preparar.</p>
@@ -1290,6 +1290,14 @@ function trackCal(e) {
   fbq('track', 'CompleteRegistration');
   gtag('event', 'conversion', {'send_to': 'AW-18326006064/Vwv4CKTb9tAcELDSwqJE'});
   setTimeout(function(){ window.open('https://cal.com/team/mev-sales-team/mevi-informes?utm_source=mev', '_blank'); }, 300);
+}
+
+// CTA de Cursos de Ingreso — mismos eventos de conversion del sitio, con distintivo de linea de negocio
+function trackCalCursos(e) {
+  e.preventDefault();
+  fbq('track', 'CompleteRegistration', {content_category: 'cursos-ingreso'});
+  gtag('event', 'conversion', {'send_to': 'AW-18326006064/Vwv4CKTb9tAcELDSwqJE', 'event_label': 'cursos-ingreso'});
+  setTimeout(function(){ window.open('https://cal.com/team/mev-sales-team/mevi-informes?utm_source=mev&utm_content=cursos-ingreso', '_blank'); }, 300);
 }
 
 // Medicion de clics en el cross-sell del ecosistema (no es evento de conversion)
