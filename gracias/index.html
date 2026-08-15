@@ -3,6 +3,20 @@
 <head>
 <!-- Meta Pixel Code -->
 <script>
+/* 1. Reserva valida solo si la URL trae los parametros que cal.com reenvia al confirmar */
+var mevReservaValida=false;
+try{
+  var mevQ=new URLSearchParams(location.search);
+  mevReservaValida=mevQ.has('isSuccessBookingPage')||mevQ.has('startTime')||mevQ.has('eventTypeSlug');
+}catch(e){
+  mevReservaValida=/[?&](isSuccessBookingPage|startTime|eventTypeSlug)[=&]/.test(location.search+'&');
+}
+/* 2. Limpiar la URL ANTES de cargar el pixel: los parametros de cal.com traen datos
+   personales y no deben llegar a Meta dentro de la URL del evento */
+try{
+  if(location.search||location.hash){history.replaceState(null,'',location.pathname);}
+}catch(e){}
+/* 3. El pixel se inicializa ya con la URL limpia */
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -13,16 +27,16 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2131352721031916');
 fbq('track', 'PageView');
-/* Schedule: una vez por sesion de pestana — un refresh o regreso a /gracias no re-dispara */
+/* 4. Schedule solo con reserva valida, y una vez por sesion de pestana */
 var mevScheduleFired=false;
 try{mevScheduleFired=sessionStorage.getItem('mev_schedule_fired')==='1'}catch(e){}
-if(!mevScheduleFired){
+if(mevReservaValida&&!mevScheduleFired){
   fbq('track','Schedule');
   try{sessionStorage.setItem('mev_schedule_fired','1')}catch(e){}
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2131352721031916&ev=Schedule&noscript=1"
+src="https://www.facebook.com/tr?id=2131352721031916&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
