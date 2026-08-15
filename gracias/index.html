@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2131352721031916');
+fbq('track', 'PageView');
+/* Schedule: una vez por sesion de pestana — un refresh o regreso a /gracias no re-dispara */
+var mevScheduleFired=false;
+try{mevScheduleFired=sessionStorage.getItem('mev_schedule_fired')==='1'}catch(e){}
+if(!mevScheduleFired){
+  fbq('track','Schedule');
+  try{sessionStorage.setItem('mev_schedule_fired','1')}catch(e){}
+}
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2131352721031916&ev=Schedule&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Videollamada Agendada — Mi Escuela Virtual</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --naranja:#FF6B00;--naranja2:#FF8C00;--naranja-soft:#FFA040;--naranja-glow:rgba(255,107,0,.45);
+  --negro:#0A0A0A;--negro2:#111111;--negro3:#1A1A1A;--gris:#2A2A2A;
+  --gt:#888;--gt2:#AAA;--txt-1:#E2E2E2;--blanco:#FFF;
+  --green:#4ADE80;--green-soft:#7CFFB2;
+  --line-1:rgba(255,255,255,.06);--line-2:rgba(255,255,255,.10);--line-3:rgba(255,107,0,.22);--line-4:rgba(255,107,0,.42);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-spring:cubic-bezier(.34,1.4,.6,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+*:focus-visible{outline:2px solid var(--naranja);outline-offset:3px;border-radius:4px}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Outfit',sans-serif;background:var(--negro);color:var(--blanco);overflow-x:hidden;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+@keyframes fadeD{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroBreath{0%,100%{opacity:.8;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 8px #7CFFB2;opacity:1}50%{box-shadow:0 0 18px #7CFFB2;opacity:.7}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;align-items:center;padding:14px 5%;background:rgba(10,10,10,.78);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--line-1)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.55rem;letter-spacing:2px;color:var(--naranja);text-decoration:none;transition:transform .25s var(--ease-spring)}
+.nav-logo:hover{transform:translateY(-1px)}
+.nav-logo span{color:var(--blanco)}
+
+.hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 5% 70px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-300px;left:50%;width:min(1200px,140vw);height:min(1200px,140vw);background:radial-gradient(circle,rgba(255,107,0,.14) 0%,rgba(255,107,0,.04) 30%,transparent 65%);pointer-events:none;animation:heroBreath 9s ease-in-out infinite;z-index:0}
+.hero > *{position:relative;z-index:1}
+
+.badge{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(180deg,rgba(74,222,128,.14),rgba(74,222,128,.05));border:1px solid rgba(74,222,128,.4);color:var(--green);font-size:.74rem;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;padding:8px 18px;border-radius:100px;margin-bottom:28px;opacity:0;transform:translateY(12px);animation:fadeD .9s var(--ease-out) .15s forwards;box-shadow:0 0 24px rgba(74,222,128,.15)}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green-soft);animation:dotPulse 1.8s ease-in-out infinite}
+
+.check{width:88px;height:88px;border-radius:50%;background:linear-gradient(180deg,rgba(74,222,128,.16),rgba(74,222,128,.05));border:1px solid rgba(74,222,128,.45);display:flex;align-items:center;justify-content:center;margin-bottom:26px;box-shadow:0 0 44px rgba(74,222,128,.22);opacity:0;transform:translateY(12px);animation:fadeD .9s var(--ease-out) .05s forwards}
+.check svg{width:44px;height:44px;stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,7vw,5.4rem);line-height:.95;letter-spacing:2px;margin-bottom:20px;opacity:0;transform:translateY(14px);animation:fadeD 1s var(--ease-out) .3s forwards;text-wrap:balance}
+h1 .n{background:linear-gradient(180deg,var(--naranja-soft) 0%,var(--naranja) 60%,var(--naranja2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 14px rgba(255,107,0,.4))}
+p.sub{font-size:clamp(.95rem,2.2vw,1.15rem);color:var(--txt-1);max-width:600px;line-height:1.75;margin-bottom:34px;opacity:0;transform:translateY(12px);animation:fadeD 1.1s var(--ease-out) .45s forwards;text-wrap:pretty}
+
+.wa-card{display:flex;align-items:flex-start;gap:14px;text-align:left;max-width:520px;background:linear-gradient(180deg,var(--negro3),var(--negro2));border:1px solid var(--line-2);border-radius:14px;padding:20px 22px;margin-bottom:40px;opacity:0;transform:translateY(12px);animation:fadeD 1.1s var(--ease-out) .55s forwards}
+.wa-card .ic{font-size:1.6rem;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45))}
+.wa-card p{font-size:.92rem;color:var(--txt-1);line-height:1.65}
+.wa-card strong{color:var(--green)}
+
+.btn-p{position:relative;background:linear-gradient(180deg,var(--naranja) 0%,#E85F00 100%);color:var(--negro);font-weight:800;font-size:.98rem;padding:16px 32px;border-radius:8px;text-decoration:none;transition:transform .3s var(--ease-spring),box-shadow .3s var(--ease-out);display:inline-flex;align-items:center;gap:8px;box-shadow:0 10px 24px -4px var(--naranja-glow),0 1px 0 rgba(255,255,255,.18) inset;letter-spacing:.2px;opacity:0;transform:translateY(12px);animation:fadeD 1s var(--ease-out) .65s forwards}
+.btn-p:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 36px -6px rgba(255,107,0,.55),0 1px 0 rgba(255,255,255,.25) inset}
+.btn-p:active{transform:translateY(-1px) scale(.99)}
+
+footer{background:var(--negro);padding:32px 5%;text-align:center;border-top:1px solid var(--line-1);color:var(--gt);font-size:.8rem;line-height:1.6}
+footer strong{color:var(--naranja);font-weight:700}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">MI ESCUELA <span>VIRTUAL</span></a>
+</nav>
+
+<main class="hero">
+  <div class="check" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+  </div>
+  <div class="badge">Videollamada agendada</div>
+  <h1>¡Listo! Tu Videollamada<br><span class="n">Quedó Agendada</span></h1>
+  <p class="sub">Guardamos tu lugar en el día y la hora que elegiste. En la videollamada resolveremos todas tus dudas sobre tu Escuela Virtual — sin compromiso y sin presión.</p>
+
+  <div class="wa-card">
+    <div class="ic">💬</div>
+    <p>Te llegará la <strong>confirmación por WhatsApp</strong> con los detalles de tu cita. Si necesitas cambiar el día o la hora, por ese mismo medio podemos ayudarte.</p>
+  </div>
+
+  <a class="btn-p" href="/">← Volver al inicio</a>
+</main>
+
+<footer><p>© 2025 <strong>Mi Escuela Virtual</strong> · Todos los derechos reservados · Negocio educativo con validez oficial en México y EE.UU.</p></footer>
+
+</body>
+</html>
