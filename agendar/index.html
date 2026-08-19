@@ -105,16 +105,40 @@ footer strong{color:var(--naranja);font-weight:700}
      Misma clave de sessionStorage que /gracias: si cal.com despues redirige la
      pagina completa a /gracias (successRedirectUrl del event type), esa pagina
      ve la marca y no vuelve a disparar — exactamente un Schedule por reserva. */
+  /* Callback nombrado y unico. Triple candado contra dobles:
+      1) flag en memoria (aguanta aunque sessionStorage falle)
+      2) flag en sessionStorage (se escribe ANTES del fbq; aguanta recargas en la pestana)
+      3) eventID = UID de la reserva de cal.com -> Meta deduplica cualquier otro
+         disparo de Schedule con el mismo eventID (p. ej. el espejo de la CAPI Gateway).
+     Prioridad del eventID: uid de la reserva -> eid persistido -> generado. */
+  window.__mevCbCount = 0;
+  window.__mevFbqCount = 0;
+  window.__mevOnBooking = function (ev) {
+    console.log("[MEV] bookingSuccessful callback #" + (++window.__mevCbCount));
+    try {
+      var d = (ev && ev.detail && ev.detail.data) || {};
+      var uid = d.uid || (d.booking && d.booking.uid) || d.bookingId || "";
+      var eventID = uid ? String(uid) : "";
+      if (!eventID) { try { eventID = sessionStorage.getItem("mev_schedule_eid") || ""; } catch (e) {} }
+      if (!eventID) { eventID = "mev-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10); }
+      try { sessionStorage.setItem("mev_schedule_eid", eventID); } catch (e) {}
+      if (window.__mevScheduleFired) return;
+      window.__mevScheduleFired = true;
+      try {
+        if (sessionStorage.getItem("mev_schedule_fired") === "1") return;
+        sessionStorage.setItem("mev_schedule_fired", "1");
+      } catch (e) {}
+      if (typeof fbq === "function") {
+        window.__mevFbqCount++;
+        console.log("[MEV] fbq Schedule -> eventID: " + eventID);
+        fbq("track", "Schedule", { content_category: "MEV" }, { eventID: eventID });
+      }
+    } catch (e) {}
+  };
+
   Cal.ns["mevi-informes"]("on", {
     action: "bookingSuccessful",
-    callback: function () {
-      var yaDisparado = false;
-      try { yaDisparado = sessionStorage.getItem('mev_schedule_fired') === '1'; } catch (e) {}
-      if (!yaDisparado && typeof fbq === 'function') {
-        fbq('track', 'Schedule');
-        try { sessionStorage.setItem('mev_schedule_fired', '1'); } catch (e) {}
-      }
-    }
+    callback: window.__mevOnBooking
   });
 
   /* Ocultar el indicador de carga cuando el calendario este listo */

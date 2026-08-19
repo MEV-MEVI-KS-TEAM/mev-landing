@@ -3,11 +3,14 @@
 <head>
 <!-- Meta Pixel Code -->
 <script>
-/* 1. Reserva valida solo si la URL trae los parametros que cal.com reenvia al confirmar */
+/* 1. Reserva valida solo si la URL trae los parametros que cal.com reenvia al confirmar.
+   El uid se lee AQUI, antes del replaceState — es el eventID de dedup de Meta */
 var mevReservaValida=false;
+var mevReservaUid='';
 try{
   var mevQ=new URLSearchParams(location.search);
   mevReservaValida=mevQ.has('isSuccessBookingPage')||mevQ.has('startTime')||mevQ.has('eventTypeSlug');
+  mevReservaUid=mevQ.get('uid')||mevQ.get('bookingUid')||'';
 }catch(e){
   mevReservaValida=/[?&](isSuccessBookingPage|startTime|eventTypeSlug)[=&]/.test(location.search+'&');
 }
@@ -27,12 +30,18 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2131352721031916');
 fbq('track', 'PageView');
-/* 4. Schedule solo con reserva valida, y una vez por sesion de pestana */
+/* 4. Schedule solo con reserva valida, y una vez por sesion de pestana.
+   Flag escrito ANTES del fbq (mismo orden que /agendar).
+   eventID con prioridad: uid de la reserva -> eid persistido -> generado. */
 var mevScheduleFired=false;
 try{mevScheduleFired=sessionStorage.getItem('mev_schedule_fired')==='1'}catch(e){}
 if(mevReservaValida&&!mevScheduleFired){
-  fbq('track','Schedule');
+  var mevEid=mevReservaUid||'';
+  if(!mevEid){try{mevEid=sessionStorage.getItem('mev_schedule_eid')||''}catch(e){}}
+  if(!mevEid){mevEid='mev-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);}
+  try{sessionStorage.setItem('mev_schedule_eid',mevEid)}catch(e){}
   try{sessionStorage.setItem('mev_schedule_fired','1')}catch(e){}
+  fbq('track','Schedule',{content_category:'MEV'},{eventID:mevEid});
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
