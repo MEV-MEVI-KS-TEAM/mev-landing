@@ -93,9 +93,22 @@ footer strong{color:var(--naranja);font-weight:700}
 
   Cal("init", "mevi-informes", {origin:"https://app.cal.com"});
 
+  /* MEV atribución (1b, 2-sep-2026): anuncio/conjunto llegan en la URL (desde index.html)
+     o en sessionStorage, y viajan a cal.com como metadata de la reserva ->
+     webhook -> columna anuncio/conjunto en el Sheet MEV - Videollamadas. */
+  var __mevCfg = {"layout":"month_view","theme":"dark"};
+  try {
+    var __q = new URLSearchParams(location.search);
+    var __a = __q.get("anuncio") || __q.get("utm_content") || "";
+    var __c = __q.get("conjunto") || __q.get("utm_campaign") || "";
+    try { if (!__a) __a = sessionStorage.getItem("mev_anuncio") || ""; if (!__c) __c = sessionStorage.getItem("mev_conjunto") || ""; } catch (e) {}
+    if (__a) __mevCfg["metadata[anuncio]"] = String(__a).slice(0, 120);
+    if (__c) __mevCfg["metadata[conjunto]"] = String(__c).slice(0, 120);
+  } catch (e) {}
+
   Cal.ns["mevi-informes"]("inline", {
     elementOrSelector:"#my-cal-inline-mevi-informes",
-    config: {"layout":"month_view","theme":"dark"},
+    config: __mevCfg,
     calLink: "team/mev-sales-team/mevi-informes",
   });
 

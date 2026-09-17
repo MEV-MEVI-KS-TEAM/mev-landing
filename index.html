@@ -1370,5 +1370,21 @@ function trackCrossSell(destino) {
 })();
 </script>
 
+<!-- MEV atribución: anuncio/conjunto viajan de la URL del anuncio a /agendar (1b, 2-sep-2026) -->
+<script>
+(function(){try{
+  var q=new URLSearchParams(location.search);
+  var a=q.get('anuncio')||q.get('utm_content')||'';
+  var c=q.get('conjunto')||q.get('utm_campaign')||'';
+  if(!a&&!c)return;
+  try{if(a)sessionStorage.setItem('mev_anuncio',a);if(c)sessionStorage.setItem('mev_conjunto',c);}catch(e){}
+  document.querySelectorAll('a[href*="/agendar"]').forEach(function(l){try{
+    var u=new URL(l.getAttribute('href'),location.origin);
+    if(a)u.searchParams.set('anuncio',a);
+    if(c)u.searchParams.set('conjunto',c);
+    l.setAttribute('href',u.toString());
+  }catch(e){}});
+}catch(e){}})();
+</script>
 </body>
 </html>
