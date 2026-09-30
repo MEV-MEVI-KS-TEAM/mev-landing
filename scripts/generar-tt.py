@@ -86,7 +86,10 @@ def build_agendar():
     s = read("agendar/index.html")
     s = sub1(s, META_PIXEL.pattern, "", regex=True)
     s = sub1(s, '<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<meta name="robots" content="noindex">\n' + TIKTOK_HEAD)
-    s = sub1(s, '<a class="nav-logo" href="/">', '<a class="nav-logo" href="/tt">')
+    # /tt/agendar es el destino de los anuncios de TikTok: el logo no sale a /tt (trae cifras de recuperación e ingresos
+    # que TikTok rechaza) y el pie no afirma validez oficial MX/EE.UU. mientras MEV no lo sustente por escrito
+    s = sub1(s, '<a class="nav-logo" href="/">', '<a class="nav-logo" href="/tt/agendar">')
+    s = sub1(s, " · Negocio educativo con validez oficial en México y EE.UU.", "")
     s = sub1(s, "https://cal.com/team/mev-sales-team/mevi-informes", "https://cal.com/team/mev-sales-team/mev-informes-tt")
     s = sub1(s, 'Cal("init", "mevi-informes", {origin:"https://app.cal.com"});', 'Cal("init", "mev-informes-tt", {origin:"https://app.cal.com"});')
     # metadata anuncio/conjunto (Meta) -> metadata utm_*/ttclid (TikTok)
@@ -111,7 +114,7 @@ def build_agendar():
     s = sub1(s, r"  /\* Al completarse la reserva dentro del embed.*?Cal\.ns\[\"mevi-informes\"\]\(\"on\", \{\n    action: \"bookingSuccessful\",\n    callback: window\.__mevOnBooking\n  \}\);\n\n", "", regex=True)
     s = sub1(s, 'Cal.ns["mevi-informes"]("on", {\n    action: "linkReady",', 'Cal.ns["mev-informes-tt"]("on", {\n    action: "linkReady",')
     s = sub1(s, "my-cal-inline-mevi-informes", "my-cal-inline-mev-informes-tt", count=3)
-    for bad in ("fbq", "facebook", "2131352721031916", "mevi-informes\"", "__mevOnBooking", "Schedule"):
+    for bad in ("fbq", "facebook", "2131352721031916", "mevi-informes\"", "__mevOnBooking", "Schedule", 'href="/tt"', "EE.UU."):
         if bad in s:
             sys.exit(f"quedó '{bad}' en tt/agendar/index.html")
     return s
