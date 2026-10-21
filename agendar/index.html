@@ -105,6 +105,24 @@ footer strong{color:var(--naranja);font-weight:700}
     if (__a) __mevCfg["metadata[anuncio]"] = String(__a).slice(0, 120);
     if (__c) __mevCfg["metadata[conjunto]"] = String(__c).slice(0, 120);
   } catch (e) {}
+  /* Señal Meta (21-oct-2026): cookies _fbp/_fbc y user agent viajan como metadata de la
+     reserva -> webhook NpbET8faoWvEAzwE -> Schedule por CAPI con el mismo eventID (uid).
+     Sin _fbc pero con fbclid (URL o sessionStorage) se arma "fb.1.<ms>.<fbclid>". */
+  try {
+    var __ck = function (n) { try { var m = document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")); return m ? decodeURIComponent(m[1]) : ""; } catch (e) { return ""; } };
+    var __fbp = __ck("_fbp");
+    var __fbc = __ck("_fbc");
+    if (!__fbc) {
+      var __fid = "";
+      try { __fid = new URLSearchParams(location.search).get("fbclid") || ""; } catch (e) {}
+      try { if (__fid) sessionStorage.setItem("mev_fbclid", __fid); else __fid = sessionStorage.getItem("mev_fbclid") || ""; } catch (e) {}
+      if (__fid) __fbc = "fb.1." + Date.now() + "." + __fid;
+    }
+    var __ua = navigator.userAgent || "";
+    if (__fbp) __mevCfg["metadata[fbp]"] = String(__fbp).slice(0, 400);
+    if (__fbc) __mevCfg["metadata[fbc]"] = String(__fbc).slice(0, 400);
+    if (__ua) __mevCfg["metadata[ua]"] = String(__ua).slice(0, 400);
+  } catch (e) {}
 
   Cal.ns["mevi-informes"]("inline", {
     elementOrSelector:"#my-cal-inline-mevi-informes",
